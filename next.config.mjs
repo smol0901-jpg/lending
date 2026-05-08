@@ -3,8 +3,6 @@ const nextConfig = {
   // Performance optimizations
   env: {
     NEXT_TELEMETRY_DISABLED: "1",
-    SWC_CACHE: "1",
-    WEBPACK_CACHE: "memory",
   },
   async rewrites() {
     return [{ source: "/public/:path*", destination: "/:path*" }];
@@ -30,32 +28,14 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   distDir: ".next",
   trailingSlash: true,
-  // Build optimization
-  experimental: {
-    // Modern experimental features for Next.js 15
-  },
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
   // Cache optimization
   onDemandEntries: {
     maxInactiveAge: 60 * 1000,
     pagesBufferLength: 2,
-  },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      canvas: false,
-      encoding: false,
-    };
-    config.watchOptions = {
-      poll: 1000,
-      aggregateTimeout: 300,
-      ignored: /node_modules/,
-    };
-    return config;
   },
   images: {
     // Disable remote patterns
